@@ -1,0 +1,102 @@
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Simple Info Form</title>
+	<style>
+	    body{
+	    	font-family: Arial
+	    }
+		.label {
+			width: 10%;
+			float: left;
+		}
+		.info{
+			padding: 5px;
+		}
+		form{
+			padding-left: 30px;
+		}
+	</style>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<!-- <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> -->
+</head>
+<body>
+	<!-- <form id="simple-form" action="./submit_form.php" encrypt="application/x-www-form-urlencoded" method="POST"> -->
+	<form id="simple-form" encrypt="application/x-www-form-urlencoded" method="POST">
+		<div class="info">
+			<div class="label">Họ và tên</div>
+			<input type="text" name="name" required onkeypress="return checkValidName(event)"></input><br>
+		</div>
+		<div class="info">
+			<div class="label">Mã số sinh viên</div>
+			<input type="text" name="student_id" maxlength="15" required></input><br>
+		</div>
+		<div class="info">
+			<div class="label">Email</div>
+			<input type="email" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}" required></input><br>
+		</div>
+		<div class="info">
+			<div class="label">Số điện thoại</div>
+			<input type="text" name="phone" maxlength="15" required></input><br>
+		</div>
+		<div class="info">
+			<div class="label">Ngày sinh</div>
+			<input type="text" name="dob"></input><br>
+		</div>
+		<div class="info">
+			<div class="label">Giới tính</div>
+			<input type="text" name="gender"></input><br>
+		</div>
+		<div class="info">
+			<div class="label">Địa chỉ</div>
+			<input type="text" name="address"></input><br>
+		</div>
+		<div class="info">
+			<div class="label">Ghi chú</div>
+			<input type="text" name="note"></input><br>
+		</div>
+		<!-- Button used in Bai thuc hanh 1-4
+		<input type="submit" name="submit" value="Lưu"></input> -->
+
+		<!-- Button used in Bai thuc hanh 5-->
+		<input type="button" name="submit" value="Lưu" onclick="ajaxFunction()"></input><br>
+		<!-- The result of ajax will be replaced here -->
+		<p id="result"></p> 
+	</form>
+</body>
+<script>
+	function checkValidName(_event) {		
+		return /^[A-Za-z ]+$/.test(_event.key);
+	}
+	
+	// Using Ajax by XMLHttpRequest
+	function ajaxFunction(data) {
+		var xmlhttp;
+		if (window.XMLHttpRequest)
+		{
+			xmlhttp = new XMLHttpRequest(); 
+		}
+		else
+			xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+
+		xmlhttp.onreadystatechange = function(){
+			if(this.readyState==4 && this.status==200)
+				 $("#result").html(this.responseText);
+		};
+
+		// Sset up information for xmlhttp
+		xmlhttp.open("POST", "./submit_form.php", true);
+		xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		xmlhttp.send(data);
+	}
+	
+	
+
+	// Repaired data for auto call ajaxFunction
+	var mydata = "name=Pham Khoi Nguyen&student_id=18520114&email=18520114@gm.uit.edu.vn&phone=0943218765&dob=&gender=Nu&address=DH CNTT&note=Sinh vien nam 3";
+
+	// With window.onload, the ajaxFunction function will be automatically called when the page load
+	window.onload = ajaxFunction(mydata);
+
+</script>
+</html>

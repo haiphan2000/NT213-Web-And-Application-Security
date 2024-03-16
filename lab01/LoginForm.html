@@ -1,0 +1,40 @@
+<html>
+<head>
+	<title>Login Page</title>
+	<meta charset="UTF-8">
+	<style>
+		body{
+			font-family: Arial;
+		}
+
+		.label{
+			width: 10%;
+			float: left;
+		}
+
+		.info{
+			padding: 5px;
+		}
+		form{
+			padding-left: 30px;
+		}
+	</style>
+</head>
+
+<body>
+	<form id="login_form" action="./login.php" application="x-www-form-urlencoded" method="POST">
+        <div class="info">
+            <div class="label">username </div>
+			<!-- the value of pattern attribute indicate that username is only alphabet character, number, underscore or dash -->
+            <input type="text" name="username" pattern="[a-zA-Z0-9_-]+" required></input><br >
+        </div>
+
+        <div class="info">
+            <div class="label">password </div>
+            <input type="password" name="password" minlength="8" required></input><br>
+        </div>
+
+        <input type="submit" name="submit" value="Login"></input><br>
+
+    </form>
+</body>
